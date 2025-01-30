@@ -10,13 +10,10 @@ app.post('/save', (req, res) => {
     const { username, password } = req.body;
     const entry = `Username: ${username}, Password: ${password}\n`;
 
-    fs.appendFile('credentials.txt', entry, (err) => {
-        if (err) {
-            res.status(500).send("Error saving credentials.");
-        } else {
-            res.send("Credentials saved successfully!");
-        }
-    });
+    // Append new credentials to the credentials.txt file
+    fs.appendFileSync('credentials.txt', entry, 'utf8');
+
+    res.send("Credentials saved successfully!");
 });
 
 app.listen(port, () => {
